@@ -1,0 +1,39 @@
+*{margin: 0;
+padding: 0;
+list-style: none;}
+ /* 按鈕 */
+.btn{
+    padding: 5px 15px;
+    margin: 0 12px;
+  border-radius: 20px;
+  background: linear-gradient(35deg,#BBD0FF,#CBEEF3);
+  border: none;
+color: white;
+transition: all 0.9s;
+}
+.btn:hover{
+  background: linear-gradient(35deg,#64A6BD,#ADA7C9);
+color: #B8C0FF;
+  /* 64A6BD */
+}
+/* 星星 */
+.fa-star{color: #B8C0FF;}
+.fa-star:hover{color: #64A6BD;}
+
+
+/* 卡片 */
+.card {
+  margin:20px;
+  width: 700px;
+  font-size: 14px;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  color: white;
+  background: linear-gradient(35deg, #64A6BD, #B8C0FF);
+}
+
