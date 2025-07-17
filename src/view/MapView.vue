@@ -1,10 +1,38 @@
 <template>
-  <div class="container">
+  <div class="">
+    <!-- 載入loading動畫覆蓋層 -->
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>畢竟有兩千多個攤位，請耐心等候載入...</p>
+      </div>
+    </div>
+
+    <div class="bgg">
+    <div class=" explain">
+      <dl>
+        <dt>
+          操作說明
+        </dt>
+        <ol>
+
+          請先<span>1.分類選單</span>選好作品分類後，
+          若不要該作品可以在<span>2.已選擇中</span>
+          點作品名字即可刪除，再<span>3.選擇cp</span>
+          <ul>
+            <h3>注意cp選項一定要最後一個選!!</h3>
+          </ul>選好cp後再取消作品或是勾新的作品，cp選項就會cp重置，要重新勾cp。
+
+          <dd>可以在搜索欄輸入後按下enter查詢作品，將輸入的字刪掉後再按enter就能回到所有作品。</dd>
+        </ol>
+      </dl>
+    </div>
+
     <div class="card_row">
 
       <div class="card">
         <div class="card-header">
-          <h3>分類選單</h3>
+          <h3>1.分類選單</h3>
         </div>
         <div class="card-body">
           <!-- 分類搜尋列 -->
@@ -21,17 +49,14 @@
 
       <div class="card">
         <div class="card-header">
-          <h3>已選擇</h3>
+          <h3>2.已選擇</h3>
         </div>
         <div class="card-body">
 
           <div class="check_list select_row">
             <!-- 顯示 -->
-            <div v-for="s_cat in selectedCategories" 
-            :key="s_cat">
-              <button class="select_box" 
-              
-              v-on:click="cancel_select(s_cat)"> {{ getCatName(s_cat) }}
+            <div v-for="s_cat in selectedCategories" :key="s_cat">
+              <button class="select_box" v-on:click="cancel_select(s_cat)"> {{ getCatName(s_cat) }}
               </button>
               <!--  :style="{ backgroundColor: getColorByCatId(s_cat) }" -->
             </div>
@@ -41,39 +66,39 @@
       </div>
 
       <!-- 篩選cp -->
-        <div class="card">
+      <div class="card">
         <div class="card-header">
-          <h3>選擇cp</h3>
+          <h3>3.選擇cp</h3>
         </div>
         <div class="card-body">
 
           <div class="check_list ">
-<label v-for="cp in cpOptions" :key="cp" class="select_box">
-<input type="checkbox" v-model="selectedCPs" :value="cp"/>
-<span class="">{{cp}}</span>
-</label>
+            <label v-for="cp in cpOptions" :key="cp" class="select_box">
+              <input type="checkbox" v-model="selectedCPs" :value="cp" />
+              <span class="">{{ cp }}</span>
+            </label>
 
           </div>
         </div>
 
       </div>
     </div>
-
-<div class="btn_row">
-    <button class="btn" @click="clearAll">
-      清空所有</button>
-    <button class="btn" @click="saveAsPDF">儲存為 PDF</button>
+<!-- 按鈕 -->
+    <div class="btn_row">
+      <button class="btn" @click="clearAll">
+        清空所有</button>
+      <button class="btn" @click="saveAsPDF">儲存為 PDF</button>
+    </div>
   </div>
     <!-- <draw_map ref="drawMapRef" :authors="authors" 
     :selected-categories="selectedCategories"
       :manual-selections="manualSelections" 
       :get-color-by-index="getColorByIndex" />-->
-      <!-- 增加新的顏色函數:get-color-by-categories -->
-    <draw_map v-if="isDataLoaded" ref="drawMapRef" :authors="authors" 
-    :selected-categories="selectedCategories" :m-to-blue="mToBlue"
-      :m-to-white="mToWhite" :get-color-by-index="getColorByIndexForMap" 
-      :get-color-by-cat-id="getColorByCatId" :get-color-by-categories="getColorByCategories" 
-      :selected-cps="selectedCPs" />
+    <!-- 增加新的顏色函數:get-color-by-categories -->
+    <draw_map v-if="isDataLoaded" ref="drawMapRef" :authors="authors" :selected-categories="selectedCategories"
+      :m-to-blue="mToBlue" :m-to-white="mToWhite" :get-color-by-index="getColorByIndexForMap"
+      :get-color-by-cat-id="getColorByCatId" :get-color-by-categories="getColorByCategories" :selected-cps="selectedCPs"
+      @loading-start="handleLoadingStart" @loading-end="handleLoadingEnd" />
     <div v-else class="loading">
       <p>正在載入展場地圖...</p>
     </div>
@@ -81,11 +106,11 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch} from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 // 引用攤位的座標地圖js
-import{generateLayout} from 
-'@/composables/booth_map2'
+import { generateLayout } from
+  '@/composables/booth_map2'
 // '@/composables/Nangang_booth_map'
 // 轉成pdf套件
 // import html2canvas from 'html2canvas'//但我已經是canvas了所以不用這個
@@ -96,8 +121,8 @@ import draw_map from '../components/draw_map.vue'
 import { useCategories } from '@/composables/useCategories'
 const { categories, loadCategories } = useCategories()
 // 加載分類資料
-import{authors_Info}from '@/composables/authorInfo'
-const {au,loadAuthors}=authors_Info()
+import { authors_Info } from '@/composables/authorInfo'
+const { au, loadAuthors } = authors_Info()
 // 搜尋分類的名字
 const searchTC = ref('')
 const filtererCat = computed(() => {
@@ -108,9 +133,12 @@ const filtererCat = computed(() => {
     )
 })
 // 加載下選單資料
-import{useCpOptions} from '@/composables/useCpOptions'
-const {cpOptions, selectedCPs, getCpforCat, shouldExcludeAuthor}=useCpOptions()
+import { useCpOptions } from '@/composables/useCpOptions'
+const { cpOptions, selectedCPs, getCpforCat, shouldExcludeAuthor } = useCpOptions()
 
+// 載入狀態管理
+const isLoading = ref(false)
+const loadingStartTime = ref(0)
 
 // 手動點框框即變色
 // const manualSelections = ref(new Set()) //建立一個響應式的 Set(值不會重複的陣列，但他沒有index)，並把它包在 ref 中
@@ -130,10 +158,10 @@ const authorsWithCP = ref([])
 const isDataLoaded = ref(false)
 
 // 在 onMounted 中
-onMounted(() => { 
+onMounted(() => {
   loadCategories()
   const authorInfo = loadAuthors() // 直接取得資料
-  
+
   // 處理攤位資料
   authors.value = boothLayout.map(booth => {
     // 1️⃣ 從所有作者資訊中，找出 id 和當前攤位 id 相同的所有作者（支援共攤）
@@ -163,12 +191,12 @@ onMounted(() => {
       return booth
     }
   })
-  
+
   // 預先篩選有CP的攤位
-  authorsWithCP.value = authors.value.filter(author => 
+  authorsWithCP.value = authors.value.filter(author =>
     author.useCpOptions && author.useCpOptions.length > 0
   )
-  
+
   // 標記資料已載入完成
   isDataLoaded.value = true
 })
@@ -177,7 +205,7 @@ onMounted(() => {
 // 選了那些分類
 const selectedCategories = ref([])
 // 監控選了那些下選單
-watch(selectedCategories,(newCats)=>{
+watch(selectedCategories, (newCats) => {
   // console.log('選擇的分類:', newCats)
   getCpforCat(newCats)
   // console.log('CP選項:', cpOptions.value)
@@ -200,14 +228,14 @@ watch(selectedCPs, (newCPs, oldCPs) => {
 
 //變色 - 基於分類ID決定顏色，確保相同ID永遠有相同顏色
 function getColorByIndex(index) {
-  return `hsl(${index * 30}, 90%, 92%)`
+  return `hsl(${index * 30},60%,80%)`
 }
 
 // 基於分類ID生成固定顏色
 function getColorByCatId(id) {
   // 使用分類ID的數字部分來生成固定的顏色
   const numericId = parseInt(id.toString().replace(/\D/g, '')) || 0
-  return `hsl(${numericId * 25 % 360}, 90%, 92%)`
+  return `hsl(${numericId * 25 % 360},60%,80%)`
 }
 
 // 新增：處理多分類的顏色選擇函數
@@ -215,7 +243,7 @@ function getColorByCategories(categories, selectedCategories, author) {
   if (!categories || !selectedCategories || selectedCategories.length === 0) {
     return null
   }
-  
+
   // 如果沒有CP選項，直接決定分類顏色
   if (selectedCPs.value.length === 0) {
     const matchedCategory = categories.find(cat => selectedCategories.includes(cat))
@@ -224,13 +252,13 @@ function getColorByCategories(categories, selectedCategories, author) {
     }
     return null
   }
-  
+
   // 檢查作者是否應該被排除（變白色）
   if (shouldExcludeAuthor(author, selectedCPs.value, selectedCategories)) {
     // console.log('排除作者:', author.id, 'CPs:', author.useCpOptions, '已選CPs:', selectedCPs.value)
     return null // 返回null表示白色
   }
-  
+
   // 調試：顯示羊01的顏色決定過程
   // if (author.id === '羊01') {
   //   console.log('羊01顏色決定:', {
@@ -240,14 +268,14 @@ function getColorByCategories(categories, selectedCategories, author) {
   //     color: getColorByCatId(categories.find(cat => selectedCategories.includes(cat)))
   //   })
   // }
-  
+
   // 找到第一個匹配的分類
   const matchedCategory = categories.find(cat => selectedCategories.includes(cat))
   if (matchedCategory) {
     // 返回該分類的顏色
     return getColorByCatId(matchedCategory)
   }
-  
+
   return null
 }
 
@@ -257,7 +285,7 @@ function getColorByIndexForMap(index) {
 }
 
 //從id找到分類名字
-function getCatName(id){
+function getCatName(id) {
   // 使用完整的categories而不是filtererCat，確保能找到所有分類
   const cat = categories.value.find(cat => cat.id === id)
   return cat ? cat.name : id
@@ -266,9 +294,9 @@ function getCatName(id){
 // 按按鈕取消勾選
 function cancel_select(id) {
   const index = selectedCategories.value.indexOf(id)
-  if(index !== -1){
-    selectedCategories.value.splice(index,1)
-    
+  if (index !== -1) {
+    selectedCategories.value.splice(index, 1)
+
     // 立即更新CP選項，讓對應的checkbox消失
     getCpforCat(selectedCategories.value)
   }
@@ -321,22 +349,43 @@ const saveAsPDF = async () => {
 
 }
 
+// 處理 loading 事件
+const handleLoadingStart = () => {
+  loadingStartTime.value = Date.now()
+  isLoading.value = true;
+};
 
+const handleLoadingEnd = () => {
+  const elapsed = Date.now() - loadingStartTime.value
+  const minLoadingTime = 300 // 最小載入時間 300ms
 
-
-
+  if (elapsed < minLoadingTime) {
+    // 如果載入時間太短，延遲隱藏載入動畫
+    setTimeout(() => {
+      isLoading.value = false;
+    }, minLoadingTime - elapsed)
+  } else {
+    // 如果載入時間足夠長，立即隱藏
+    isLoading.value = false;
+  }
+};
+// 處理結束
 
 </script>
 <style scoped>
+
 .card_row {
   display: flex;
 }
-
-.btn_row{
-  margin:  10px auto;
+.card{border: none;}
+.btn_row {
+  margin: 10px auto;
   display: flex;
-  justify-content: center;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  /* justify-content: center; */
 }
+
 /* 選擇按鈕 */
 .select_box {
   padding: 0 15px;
@@ -344,15 +393,16 @@ const saveAsPDF = async () => {
   /* background-color: white; */
   border-radius: 20px;
   transition: all 0.5s;
-  
-}
-.select_row{
-  display: flex ;
-  /* 可自動換行 */
-  flex-wrap: wrap; 
-  gap:5px
 
 }
+
+.select_row {
+  display: flex;
+  /* 可自動換行 */
+  flex-wrap: wrap;
+  gap: 5px
+}
+
 .select_box:hover {
   background-color: #ADA7C9;
   /* border-color: #90A8C3; */
@@ -388,5 +438,65 @@ const saveAsPDF = async () => {
   color: #666;
 }
 
+/* 載入動畫覆蓋層 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
+.loading-spinner {
+  text-align: center;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+.explain {
+  /* margin-left: 140px;
+margin-top: 25px; */
+margin: 0 auto;
+  width: 1500px;
+  background-color: #B8C0FF;
+  padding: 30px;
+  text-align: center;
+  border-radius: 30px;
+}
+.explain h3{color: white;
+font-weight: bold;
+}
+.explain dl {
+  line-height: 2.5;
+  font-size: 18px;
+}
+dl span{
+  color: white;
+  background-color: #64A6BD;
+display:inline;
+padding: 5px 10px;
+border-radius: 10px;
+margin: 10px;
+}
+.bgg{
+  padding-top: 50px;
+  background-color: #e3ebfa;}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>

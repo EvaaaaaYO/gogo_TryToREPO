@@ -75,7 +75,7 @@ export function generateLayout() {
     layout.push({ id: '宅配區', x: x++, y, type: 'facility' });
   }
   // 加入牆壁區域
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 9; i++) {
     layout.push({ id: '', x: x++, y, type: 'wall' });
   }
 
@@ -116,7 +116,7 @@ export function generateLayout() {
 
       if (zoneForThisRow) {
         // 狗跟羊的大走道間隔（兩個格子寬）
-        x += 2;
+        x += 1;
 
         // 計算是該組的第一行還是第二行
         // rowInZone = 0 表示第一行，rowInZone = 1 表示第二行
@@ -139,8 +139,8 @@ export function generateLayout() {
             }
           }
 
-          // 加入大間距分隔左右區域（4個格子寬）
-          x += 4; // 跳過四個格子作為大間距
+          // 加入大間距分隔左右區域（2個格子寬）
+          x += 2; // 跳過2個格子作為大間距
 
           // 右側區域（升序）
           for (let n = 37; n <= 72; n++) {
@@ -173,8 +173,8 @@ export function generateLayout() {
             }
           }
 
-          // 加入大間距分隔左右區域（4個格子寬）
-          x += 4; // 跳過四個格子作為大間距
+          // 加入大間距分隔左右區域（2個格子寬）
+          x += 2; // 跳過2個格子作為大間距
 
           // 右側區域（降序）
           for (let n = 36; n >= 1; n--) {
@@ -193,22 +193,22 @@ export function generateLayout() {
         }
 
       } else {
-        // 沒有橫排區塊的行，添加空白區域到 x = 85
-        while (x < 85) {
+        // 沒有橫排區塊的行，添加空白區域到 x = 81
+        while (x < 81) {
           x++;
         }
       }
 
       // 在每一行的最後加上牆壁（不管是否有橫排區塊）
-      // 確保每一行都有牆壁在 x = 85 的位置
-      if (x < 85) {
-        // 如果 x 還沒到 85，先補足到 85
-        while (x < 85) {
+      // 確保每一行都有牆壁在 x = 81 的位置
+      if (x < 81) {
+        // 如果 x 還沒到 81，先補足到 81
+        while (x < 81) {
           x++;
         }
       }
-      const exits_FIRST = [5, 43, 83];
-      const exits = [5, 6, 7, 8, 43, 44, 45, 46, 83, 84, 85];
+      const exits_FIRST = [7, 46, 84];
+      const exits = [5, 6, 7, 8, 9, 44, 45, 46, 47, 48, 82,83, 84, 85];
       if (exits_FIRST.includes(globalRow)) {
         layout.push({ id: '出入口', x: x++, y, type: 'exit' });
       }
@@ -216,7 +216,7 @@ export function generateLayout() {
         layout.push({ id: '', x: x++, y, type: 'exit' });
       }
       else {
-        // 在 x = 85 的位置加入牆壁
+        // 在 x = 82 的位置加入牆壁
         layout.push({ id: '', x: x++, y, type: 'wall' });
       }
       y++;
@@ -236,9 +236,9 @@ export function generateLayout() {
   }
   console.log(`當前數量: ${layout.length}`);
   //額外補充
-  const wall_list = [21, 54, 96,89]
+  const wall_list = [21, 54, 96, 89]
   wall_list.forEach(e => {
-    layout.push({ id: '', x: 85, y: e, type: 'wall' });
+    layout.push({ id: '', x: 81, y: e, type: 'wall' });
   });
   // 加入底部特殊區域
   // 商01列的特殊處理
@@ -257,9 +257,9 @@ export function generateLayout() {
   }
 
   // 在商01行的最後加上牆壁
-  if (x >= 85) {  // 降低條件
-    layout.push({ id: '牆壁', x: x++, y, type: 'wall' });
-  }
+  // if (x >= 85) {  // 降低條件
+  //   layout.push({ id: '牆壁', x: x++, y, type: 'wall' });
+  // }
 
   y++;
 
@@ -281,12 +281,10 @@ export function generateLayout() {
   for (let i = 0; i < 8; i++) {
     layout.push({ id: 'J區-社團入場入口處', x: x++, y, type: 'exit' });
   }
-  for (let i = 0; i < 23; i++) {
+  for (let i = 0; i < 19; i++) {
     layout.push({ id: '', x: x++, y, type: 'wall' });
   }
-  for (let i = 0; i < 3; i++) {
-    layout.push({ id: '出入口處', x: x++, y, type: 'exit' });
-  }
+
   y++; // 進入最後一行
 
   // 最底部的特殊區域

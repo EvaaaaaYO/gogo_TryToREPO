@@ -1,19 +1,27 @@
 import {createWebHistory,createRouter} from 'vue-router';
-import HomeView from '@/view/HomeView.vue';
+
 import MapView from '@/view/MapView.vue';
 import createView from '@/view/createView.vue';
 import addView from '@/view/addView.vue';
 import commentView from '@/view/commentView.vue';
 
-const routes=[{
+const routes=[
+  {
     path: '/',
     name: 'Home',
-    component: HomeView,
-  },{
-    path: '/map',
-    name: 'map',
     component: MapView,
-  },{
+  },
+  {
+    path: '/gogo_TryToREPO',
+    name: 'Home',
+    component: MapView,
+  },
+  // {
+  //   path: '/map',
+  //   name: 'map',
+  //   component: MapView,
+  // },
+  {
     path: '/add',
     name: 'add',
     component: addView,
