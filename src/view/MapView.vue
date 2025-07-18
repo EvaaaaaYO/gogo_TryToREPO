@@ -8,100 +8,111 @@
       </div>
     </div>
 
-    <div class="bgg">
-    <div class=" explain">
-      <dl>
-        <dt>
+    <div class="bg">
+      <div class=" explain">
+        <a href="#select_btn" class="a_btn">跳過說明直接開始▼</a>
+        <h3>
           操作說明
-        </dt>
-        <ol>
-
+        </h3>
+        <p>
           請先<span>1.分類選單</span>選好作品分類後，
-          若不要該作品可以在<span>2.已選擇中</span>
-          點作品名字即可刪除，再<span>3.選擇cp</span>
-          <ul>
-            <h3>注意cp選項一定要最後一個選!!</h3>
-          </ul>選好cp後再取消作品或是勾新的作品，cp選項就會cp重置，要重新勾cp。
+        </p>
+        <p>若不要該作品可以在<span>2.已選擇中</span>
+          點作品名字即可刪除，</p>再<span>3.選擇cp</span>
 
-          <dd>可以在搜索欄輸入後按下enter查詢作品，將輸入的字刪掉後再按enter就能回到所有作品。</dd>
-        </ol>
-      </dl>
-    </div>
 
-    <div class="card_row">
 
-      <div class="card">
-        <div class="card-header">
-          <h3>1.分類選單</h3>
-        </div>
-        <div class="card-body">
-          <!-- 分類搜尋列 -->
-          <input v-model.lazy="searchTC" placeholder="輸入後按下enter即可查詢作品名" class="searchTC_bar" />
-
-          <div class="check_list">
-            <label v-for="cat in filtererCat" :key="cat.id" class="checkbox_item">
-              <input type="checkbox" v-model="selectedCategories" :value="cat.id" />
-              <span class="checkbox_text">{{ cat.name }}</span>
-            </label>
-          </div>
-        </div>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h3>2.已選擇</h3>
+      <div class="explain ex_right">
+        <div class="text_right">
+          <h3>注意cp選項一定要最後一個選!!</h3>
+          選好cp後再取消作品或是勾新的作品，cp選項就會重置，要重新勾。
         </div>
-        <div class="card-body">
 
-          <div class="check_list select_row">
-            <!-- 顯示 -->
-            <div v-for="s_cat in selectedCategories" :key="s_cat">
-              <button class="select_box" v-on:click="cancel_select(s_cat)"> {{ getCatName(s_cat) }}
-              </button>
-              <!--  :style="{ backgroundColor: getColorByCatId(s_cat) }" -->
+      </div>
+      <div class="explain">
+        <p>
+          可以在搜索欄輸入後按下enter查詢，將輸入的字刪掉再按enter就能看所有作品。
+        </p>
+        若要去的攤位都不在分類裡，可以自己雙擊該攤位(點一次可能是誤觸)。
+      </div>
+      <div id="select_btn">
+        <div class="card_row">
+
+          <div class="card">
+            <div class="card-header">
+              <h3>1.分類選單</h3>
+            </div>
+            <div class="card-body">
+              <!-- 分類搜尋列 -->
+              <input v-model.lazy="searchTC" placeholder="輸入後按下enter即可查詢作品名" class="searchTC_bar" />
+
+              <div class="check_list">
+                <label v-for="cat in filtererCat" :key="cat.id" class="checkbox_item">
+                  <input type="checkbox" v-model="selectedCategories" :value="cat.id" />
+                  <span class="checkbox_text">{{ cat.name }}</span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-      </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>2.已選擇</h3>
+            </div>
+            <div class="card-body">
 
-      <!-- 篩選cp -->
-      <div class="card">
-        <div class="card-header">
-          <h3>3.選擇cp</h3>
-        </div>
-        <div class="card-body">
+              <div class="check_list select_row">
+                <!-- 顯示 -->
+                <div v-for="s_cat in selectedCategories" :key="s_cat">
+                  <button class="select_box" v-on:click="cancel_select(s_cat)"> {{ getCatName(s_cat) }}
+                  </button>
+                  <!--  :style="{ backgroundColor: getColorByCatId(s_cat) }" -->
+                </div>
+              </div>
+            </div>
 
-          <div class="check_list ">
-            <label v-for="cp in cpOptions" :key="cp" class="select_box">
-              <input type="checkbox" v-model="selectedCPs" :value="cp" />
-              <span class="">{{ cp }}</span>
-            </label>
+          </div>
+
+          <!-- 篩選cp -->
+          <div class="card">
+            <div class="card-header">
+              <h3>3.選擇cp</h3>
+            </div>
+            <div class="card-body">
+
+              <div class="check_list ">
+                <label v-for="cp in cpOptions" :key="cp" class="select_box">
+                  <input type="checkbox" v-model="selectedCPs" :value="cp" />
+                  <span class="">{{ cp }}</span>
+                </label>
+
+              </div>
+            </div>
 
           </div>
         </div>
-
+        <!-- 按鈕 -->
+        <div class="btn_row">
+          <button class="btn" @click="clearAll">
+            清空所有</button>
+          <button class="btn" @click="saveAsPDF">儲存為 PDF</button>
+        </div>
       </div>
     </div>
-<!-- 按鈕 -->
-    <div class="btn_row">
-      <button class="btn" @click="clearAll">
-        清空所有</button>
-      <button class="btn" @click="saveAsPDF">儲存為 PDF</button>
-    </div>
-  </div>
     <!-- <draw_map ref="drawMapRef" :authors="authors" 
     :selected-categories="selectedCategories"
       :manual-selections="manualSelections" 
       :get-color-by-index="getColorByIndex" />-->
     <!-- 增加新的顏色函數:get-color-by-categories -->
+     <div class="t10">
     <draw_map v-if="isDataLoaded" ref="drawMapRef" :authors="authors" :selected-categories="selectedCategories"
       :m-to-blue="mToBlue" :m-to-white="mToWhite" :get-color-by-index="getColorByIndexForMap"
       :get-color-by-cat-id="getColorByCatId" :get-color-by-categories="getColorByCategories" :selected-cps="selectedCPs"
       @loading-start="handleLoadingStart" @loading-end="handleLoadingEnd" />
     <div v-else class="loading">
       <p>正在載入展場地圖...</p>
-    </div>
+    </div></div>
   </div>
 </template>
 
@@ -111,10 +122,8 @@ import { computed, onMounted, ref, watch } from 'vue'
 // 引用攤位的座標地圖js
 import { generateLayout } from
   '@/composables/booth_map2'
-// '@/composables/Nangang_booth_map'
-// 轉成pdf套件
-// import html2canvas from 'html2canvas'//但我已經是canvas了所以不用這個
-import jsPDF from 'jspdf'
+// 轉成pdf套件 - 懶載入
+// import jsPDF from 'jspdf'
 import draw_map from '../components/draw_map.vue'
 
 // 引入分類資料的composables封裝函數
@@ -158,9 +167,33 @@ const authorsWithCP = ref([])
 const isDataLoaded = ref(false)
 
 // 在 onMounted 中
-onMounted(() => {
-  loadCategories()
-  const authorInfo = loadAuthors() // 直接取得資料
+/*onMounted(() => {
+  loadCategories()        // 等待完成
+  const authorInfo = loadAuthors()  // 再等待完成
+  // 總時間 = 時間1 + 時間2
+})*/
+/*未來會用api載入資料
+onMounted(async () => {
+  try {
+    const [categoriesData, authorInfo] = await Promise.all([
+      fetch('/api/categories').then(res => res.json()),  // 可能失敗
+      fetch('/api/authors').then(res => res.json())      // 可能失敗
+    ])
+  } catch (error) {
+    console.error('API 載入失敗:', error)
+    // 顯示錯誤訊息給用戶
+    showErrorMessage('資料載入失敗，請重新整理頁面')
+  }
+})
+*/
+onMounted(async () => {
+  // 同時載入資料，提升載入速度
+  const [categoriesData, authorInfo] = await Promise.all([
+    loadCategories(), //同時執行
+    loadAuthors()     //同時執行
+  ])
+
+
 
   // 處理攤位資料
   authors.value = boothLayout.map(booth => {
@@ -212,13 +245,14 @@ watch(selectedCategories, (newCats) => {
   // console.log('已選CPs:', selectedCPs.value)
 })
 // 監控CP選項變化，重新繪製地圖
-watch(selectedCPs, (newCPs, oldCPs) => {
-  // console.log('CP選項變化:', {
-  //   old: oldCPs,
-  //   new: newCPs,
-  //   changed: newCPs !== oldCPs
-  // })
-  // 當CP選項改變時，只重新繪製有useCpOptions的攤位
+// watch(selectedCPs, (newCPs, oldCPs) => {
+// console.log('CP選項變化:', {
+//   old: oldCPs,
+//   new: newCPs,
+//   changed: newCPs !== oldCPs
+// })
+// 當CP選項改變時，只重新繪製有useCpOptions的攤位
+watch(selectedCPs, () => {
   if (drawMapRef.value && authorsWithCP.value.length > 0) {
     authorsWithCP.value.forEach(author => {
       drawMapRef.value.redraw_single(author.id)
@@ -329,24 +363,31 @@ const saveAsPDF = async () => {
   // 如果 canvas 沒找到，就直接 return 不做事
   if (!canvasEl) return
 
-  const imgData = canvasEl.toDataURL('image/png')
+  try {
+    // 懶載入 jsPDF，只在需要時才載入
+    const { default: jsPDF } = await import('jspdf')
 
-  // 建立一個新的 jsPDF 實例（PDF 文件）
-  // - orientation: 'portrait'：直式 |'landscape':橫式
-  // - unit: 'px'：單位用像素（和 canvas 同單位）
-  // - format: 使用 canvas 圖像的寬與高，確保 PDF 尺寸剛好符合圖形大小
-  const pdf = new jsPDF({
-    orientation: 'portrait',// 更寬一點，符合你多的 x 軸
-    unit: 'px',
-    // 將 PDF 尺寸設成 canvas 大小
-    format: [canvasEl.width, canvasEl.height]
-  })
-  // 把圖片加到 PDF 裡，'PNG': 圖片格式，0, 0: 圖片放置位置（左上角）
-  // - canvasImage.width, canvasImage.height: 圖片大小
-  pdf.addImage(imgData, 'PNG', 0, 0,
-    canvasEl.width, canvasEl.height)
-  pdf.save('展場地圖.pdf')
+    const imgData = canvasEl.toDataURL('image/png')
 
+    // 建立一個新的 jsPDF 實例（PDF 文件）
+    // - orientation: 'portrait'：直式 |'landscape':橫式
+    // - unit: 'px'：單位用像素（和 canvas 同單位）
+    // - format: 使用 canvas 圖像的寬與高，確保 PDF 尺寸剛好符合圖形大小
+    const pdf = new jsPDF({
+      orientation: 'portrait',// 更寬一點，符合你多的 x 軸
+      unit: 'px',
+      // 將 PDF 尺寸設成 canvas 大小
+      format: [canvasEl.width, canvasEl.height]
+    })
+    // 把圖片加到 PDF 裡，'PNG': 圖片格式，0, 0: 圖片放置位置（左上角）
+    // - canvasImage.width, canvasImage.height: 圖片大小
+    pdf.addImage(imgData, 'PNG', 0, 0,
+      canvasEl.width, canvasEl.height)
+    pdf.save('展場地圖.pdf')
+  } catch (error) {
+    console.error('PDF 生成失敗:', error)
+    alert('PDF 生成失敗，請稍後再試')
+  }
 }
 
 // 處理 loading 事件
@@ -373,11 +414,17 @@ const handleLoadingEnd = () => {
 
 </script>
 <style scoped>
-
 .card_row {
+  padding-left: 20px;
   display: flex;
+  width: 1500px;
+  justify-content: space-around;
 }
-.card{border: none;}
+
+.card {
+  border: none;
+}
+
 .btn_row {
   margin: 10px auto;
   display: flex;
@@ -437,7 +484,7 @@ const handleLoadingEnd = () => {
   padding: 50px;
   color: #666;
 }
-
+.t10{padding-left: 10px;}
 /* 載入動畫覆蓋層 */
 .loading-overlay {
   position: fixed;
@@ -466,34 +513,74 @@ const handleLoadingEnd = () => {
   margin: 0 auto 10px;
 }
 
+.bg {
+  min-width: 2739px;
+  padding-top: 50px;
+  /* padding-bottom: 20px; */
+  width: 100%;
+
+}
+
 .explain {
-  /* margin-left: 140px;
-margin-top: 25px; */
-margin: 0 auto;
-  width: 1500px;
+  position: relative;
+  /* width: 1500px; */
   background-color: #B8C0FF;
-  padding: 30px;
-  text-align: center;
-  border-radius: 30px;
+  padding-top: 90px;
+  padding-left: 150px;
+  padding-bottom: 90px;
+  /* line-height: 2.5; */
+  font-size: 16px;
 }
-.explain h3{color: white;
-font-weight: bold;
+
+.ex_right {
+  background-color: white;
 }
-.explain dl {
-  line-height: 2.5;
-  font-size: 18px;
+
+.text_right {
+  position: absolute;
+  left: 30%;
+
+
 }
-dl span{
+
+.explain h3 {
+  color: #B8C0FF;
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+
+.explain span {
   color: white;
   background-color: #64A6BD;
-display:inline;
-padding: 5px 10px;
-border-radius: 10px;
-margin: 10px;
+  display: inline;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 10px;
 }
-.bgg{
+
+.a_btn {
+  display: inline-block;
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 30px;
+  color: #B8C0FF;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.a_btn:hover {
+  background-color: #e3ebfa;
+}
+
+#select_btn {
+  min-width: 2739px;
   padding-top: 50px;
-  background-color: #e3ebfa;}
+  width: 100%;
+  background-color: #e3ebfa;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

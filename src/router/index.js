@@ -1,6 +1,7 @@
 import {createWebHistory,createRouter} from 'vue-router';
 
-import MapView from '@/view/MapView.vue';
+// 使用懶載入，減少初始載入時間
+const MapView = () => import('@/view/MapView.vue');
 
 const routes=[
   {

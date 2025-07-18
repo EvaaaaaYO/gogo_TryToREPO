@@ -109,18 +109,11 @@ function paint_block(ctx, x, y, width, height, authorId, author) {
     color = '#ADA7C9'
     textColor='white'
   } else if (author.categories) {
-  //   // 使用新的多分類顏色函數，但只對非設施類型生效
-    // 第三個參數 author 是為了讓函數能夠檢查作者的 useCpOptions，判斷是否應該被排除（變白色）。
+    // 使用多分類顏色函數
     const categoryColor = props.getColorByCategories(author.categories, props.selectedCategories, author)
     if (categoryColor) {
       color = categoryColor
     }
-    /* 這裡的第三個 author 參數是必要的，因為：
-1.函數需要知道當前繪製的是哪個作者
-2.檢查該作者的 useCpOptions 屬性
-3.判斷該作者的CP是否被取消勾選
-如果沒有這個 author 參數，函數就無法知道要檢查哪個作者的CP選項，也就無法實現「取消勾選CP時作者變白色」的功能。
-所以這個 author 參數是實現CP篩選功能的核心部分！*/
   }
 
   // 繪製背景

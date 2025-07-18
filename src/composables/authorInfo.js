@@ -4,7 +4,7 @@ const au = ref([])
 export function authors_Info() {
     function loadAuthors() {
         const authorsData = [
-            { id: 'A01', name: '海上難民',categories: [1] },
+            { id: 'A01', name: '海上難民' },
             { id: 'A02', name: '偶像托兒所' },
             { id: 'A03', name: '黃瓜邪教' },
             { id: 'A04', name: '日嵐喫文室' },
