@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <button onclick="generateBoothLayout()">按下顯示</button> 
+   <pre id="output"></pre>
+</body>
+</html>
+<script>
+    function generateBoothLayout() {
+  const layout = []
+  const rows = 10
+  const leftBlocks = ['O', 'P', 'Q']  // 左邊三列編號
+  const rightBlocks = ['A', 'B', 'C'] // 右邊三列編號
+
+  leftBlocks.forEach((block, rowOffset) => {
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < 5; col++) {
+        layout.push({
+          boothId: `${block}${String(row * 5 + col + 1).padStart(2, '0')}`,
+          x: col,
+          y: row + rowOffset * rows
+        })
+      }
+    }
+  })
+
+  rightBlocks.forEach((block, rowOffset) => {
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < 5; col++) {
+        layout.push({
+          boothId: `${block}${String(row * 5 + col + 1).padStart(2, '0')}`,
+          x: col + 6, // 走道隔一格
+          y: row + rowOffset * rows
+        })
+      }
+    }
+  })
+console.log(layout)
+document.getElementById('output').textContent = JSON.stringify(layout, null, 2)
+
+  return layout
+}
+
+</script>
