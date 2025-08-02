@@ -1230,7 +1230,7 @@ export function authors_Info() {
             { id: 'T04', name: '深夏之花',categories: [747],useCpOptions: ['藤千','葉流圭'] },
             { id: 'T05', name: '失憶頭部',categories: [747],useCpOptions: ['葉流圭','忘八一般向'] },
             { id: 'T06', name: '貓貓狗狗圭圭',categories: [747],useCpOptions: ['圭圭'] },
-            { id: 'T07', name: '小港問事辦事處',categories: [747],useCpOptions:[''] },
+            { id: 'T07', name: '小港問事辦事處',categories: [747],useCpOptions:[] },//不知道
             { id: 'T08', name: '就跳著舞吧 我的戀人',categories: [747],useCpOptions:['藤千']},
             { id: 'T09', name: '我要填伍佰個坑' ,categories: [747],useCpOptions:['藤千']},
             { id: 'T10', name: '盤盤好棒',categories: [747],useCpOptions: ['圭圭','葉流圭'] },

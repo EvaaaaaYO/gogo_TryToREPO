@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <!-- 載入loading動畫覆蓋層 -->
     <div v-if="isLoading" class="loading-overlay">
       <div class="loading-spinner">
@@ -10,31 +10,71 @@
 
     <div class="bg">
       <div class=" explain">
-        <a href="#select_btn" class="a_btn">跳過說明直接開始▼</a>
-        <h3>
-          操作說明
-        </h3>
-        <p>
-          請先<span>1.分類選單</span>選好作品分類後，
-        </p>
-        <p>若不要該作品可以在<span>2.已選擇中</span>
-          點作品名字即可刪除，</p>再<span>3.選擇cp</span>
+        <div>
+          <a href="#select_btn" class="a_btn">跳過說明直接開始▼</a>
 
+          <h3>
+            操作說明
+          </h3>
+          <p>
+            請先<span>1.分類選單</span>選好作品分類後，
+          </p>
+          <p>若不要該作品可在<span>2.已選擇中</span>
+            點作品名字即可刪除，</p>
+          <p>
+            最後<span>3.選擇cp</span>勾選/取消勾選cp
+          </p>
+          <br>
+          <p>若要去的攤位沒有上色，手動<span>雙擊</span>該攤位；
+          </p>
+          <p> 再點一次攤位取消顏色。</p>
+          <p>可存成pdf，列印建議使用a3，但文字很小，頂多規畫動線用。</p>
 
-
-      </div>
-      <div class="explain ex_right">
-        <div class="text_right">
-          <h3>注意cp選項一定要最後一個選!!</h3>
-          選好cp後再取消作品或是勾新的作品，cp選項就會重置，要重新勾。
         </div>
+        <div class="ex_left">
+          <img src="/public/images/1.svg" alt="" class="svg_size">
+          <br>
+          <img src="/public/images/2.svg" alt="" class="click_size">
+        </div>
+      </div>
+      <div class="explain ex_w">
+        <div>
 
+          <img src="/public/images/3.svg" alt="" class="svg_size_txt">
+          <br>
+          <p></p><img src="/public/images/4.svg" alt="" class="svg_size_txt">
+
+        </div>
+        <div class="ex_left">
+        <div class="text_right">
+          <h3>注意cp選項要最後選!!</h3>
+          選好cp後再取消作品或是勾新的作品，
+          
+          cp選項就會重置，<br>
+          要重新勾。
+          <br>
+          <img src="/public/images/ah.webp" alt="" class="ah">
+          <img src="/public/images/pain_dog.webp" alt="" class="dog" loading="lazy">
+        
+        </div>
+</div>
       </div>
       <div class="explain">
-        <p>
-          可以在搜索欄輸入後按下enter查詢，將輸入的字刪掉再按enter就能看所有作品。
-        </p>
-        若要去的攤位都不在分類裡，可以自己雙擊該攤位(點一次可能是誤觸)。
+        <div>
+          <p>
+            可在搜索欄輸入後按下enter查詢，將輸入的字刪掉再按enter<br>或是按其他地方就能看所有作品。
+          </p>
+          <p>
+            電腦版可善用<span>ctrl</span>+<span>-</span>看地圖全貌
+            <br>地圖是依照官網公開的攤位配置圖，依照大概的位置排，
+          </p>
+
+          <h2>
+            不會跟當天現場一模一樣!!!</h2>
+        </div>
+        <div class="ex_left">
+          <!-- <img src="/public/images/3.svg" alt="" class="svg_size"> -->
+        </div>
       </div>
       <div id="select_btn">
         <div class="card_row">
@@ -45,7 +85,7 @@
             </div>
             <div class="card-body">
               <!-- 分類搜尋列 -->
-              <input v-model.lazy="searchTC" placeholder="輸入後按下enter即可查詢作品名" class="searchTC_bar" />
+              <input v-model.lazy="searchTC" placeholder="按下enter即可查詢作品名" class="searchTC_bar" />
 
               <div class="check_list">
                 <label v-for="cat in filtererCat" :key="cat.id" class="checkbox_item">
@@ -105,13 +145,22 @@
       :manual-selections="manualSelections" 
       :get-color-by-index="getColorByIndex" />-->
     <!-- 增加新的顏色函數:get-color-by-categories -->
-     <div class="t10">
-    <draw_map v-if="isDataLoaded" ref="drawMapRef" :authors="authors" :selected-categories="selectedCategories"
-      :m-to-blue="mToBlue" :m-to-white="mToWhite" :get-color-by-index="getColorByIndexForMap"
-      :get-color-by-cat-id="getColorByCatId" :get-color-by-categories="getColorByCategories" :selected-cps="selectedCPs"
-      @loading-start="handleLoadingStart" @loading-end="handleLoadingEnd" />
-    <div v-else class="loading">
-      <p>正在載入展場地圖...</p>
+    <div class="t10">
+      <draw_map v-if="isDataLoaded" ref="drawMapRef" :authors="authors" :selected-categories="selectedCategories"
+        :m-to-blue="mToBlue" :m-to-white="mToWhite" :get-color-by-index="getColorByIndexForMap"
+        :get-color-by-cat-id="getColorByCatId" :get-color-by-categories="getColorByCategories"
+        :selected-cps="selectedCPs" @loading-start="handleLoadingStart" @loading-end="handleLoadingEnd" />
+      <div v-else class="loading">
+        <p>正在載入展場地圖...</p>
+      </div>
+    </div>
+    <div class=" explain">
+      <div>
+      <h4>資料來源:</h4>
+
+      <a href="https://starstonetw.weebly.com/31038222963603935338.html">nice官網</a>
+      <br>
+      https://www.plurk.com/p/3hghy0yngf
     </div></div>
   </div>
 </template>
@@ -436,8 +485,10 @@ const handleLoadingEnd = () => {
 /* 選擇按鈕 */
 .select_box {
   padding: 0 15px;
+  margin-bottom: 2px;
+  margin-right: 2px;
   border: 2px solid #B8C0FF;
-  /* background-color: white; */
+  color: #055d7c;
   border-radius: 20px;
   transition: all 0.5s;
 
@@ -477,6 +528,7 @@ const handleLoadingEnd = () => {
 
 .checkbox_text {
   padding-left: 10px;
+  color: #055d7c;
 }
 
 .loading {
@@ -484,7 +536,11 @@ const handleLoadingEnd = () => {
   padding: 50px;
   color: #666;
 }
-.t10{padding-left: 10px;}
+
+.t10 {
+  padding-left: 10px;
+}
+
 /* 載入動畫覆蓋層 */
 .loading-overlay {
   position: fixed;
@@ -522,33 +578,47 @@ const handleLoadingEnd = () => {
 }
 
 .explain {
-  position: relative;
+  /* position: relative; */
   /* width: 1500px; */
   background-color: #B8C0FF;
   padding-top: 90px;
-  padding-left: 150px;
+  padding-left: 200px;
   padding-bottom: 90px;
   /* line-height: 2.5; */
   font-size: 16px;
+  display: flex;
+
 }
 
-.ex_right {
+.explain h2 {
+  color: white;
+  font-weight: bold;
+}
+
+.ex_w {
   background-color: white;
+  position: relative;
 }
 
-.text_right {
+.ex_left {
+  margin-left: 130px;
+}
+
+/* .text_right {
   position: absolute;
-  left: 30%;
-
-
-}
+  left: 30%;} */
 
 .explain h3 {
+  color: white;
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+.ex_left h3 {
+  padding-top: 50px;
   color: #B8C0FF;
   font-weight: bold;
   text-decoration-line: underline;
 }
-
 .explain span {
   color: white;
   background-color: #64A6BD;
@@ -559,6 +629,7 @@ const handleLoadingEnd = () => {
 }
 
 .a_btn {
+  font-size: 30px;
   display: inline-block;
   background-color: white;
   padding: 20px;
@@ -567,11 +638,13 @@ const handleLoadingEnd = () => {
   color: #B8C0FF;
   text-decoration: none;
   font-weight: bold;
-  transition: all 0.3s;
+  transition: all 0.5s;
 }
 
 .a_btn:hover {
-  background-color: #e3ebfa;
+  color: white;
+  scale: 1.1;
+  background-color: #666da2;
 }
 
 #select_btn {
@@ -581,9 +654,114 @@ const handleLoadingEnd = () => {
   background-color: #e3ebfa;
 }
 
+.svg_size {
+  width: 450px;
+}
+.svg_size_txt{
+  width: 650px;
+}
+.click_size {
+  margin-top: 50px;
+  margin-left: 170px;
+  width: 270px;
+}
+.ah{position: absolute;
+  left: 1080px;
+  bottom: 100px;
+width: 100px;
+transform: rotate(25deg);
+/* transform:rotate(5deg) */
+}
+.dog{
+  position: absolute;
+  left: 880px;
+  bottom: 40px;
+  width: 200px;
+  transition: all 0.3s ease; /* 明顯一點的動畫時間 */
+transform-origin: bottom;
+}
+.dog:hover{
+  /* width: 300px; */
+/* height: 50px; */
+transform:  scaleX(2) scaleY(0.2);
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
+}
+
+@media (max-width:1024px) {
+
+  .a_btn {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+
+  .explain {
+    /* position: relative; */
+    /* width: 1500px; */
+    padding-top: 90px;
+    padding-left: 35px;
+    padding-bottom: 90px;
+    font-size: 16px;
+    flex-direction: column;
+  }
+.ex_left {
+  margin-left: 0;
+}
+  /* .ex_right {
+    background-color: white;
+    margin-bottom: 40px;
+  } */
+
+  /* .text_right {
+    position: absolute;
+    top: 70px;
+    left: 70px; 
+    width: 290px;}*/
+
+  .explain h3 {
+    color: #B8C0FF;
+    font-weight: bold;
+    text-decoration-line: underline;
+  }
+
+  .card_row {
+    flex-direction: column;
+    /* width: 100px; */
+  }
+
+  .card {
+    /* width: 720px; */
+    width: 90vw;
+  }
+
+  .checkbox_item {
+    margin-bottom: 1px;
+
+  }
+
+  .select_box {
+    margin-bottom: 7px;
+    margin-right: 7px;
+  }
+
+.ah{
+  left: 700px;
+  bottom: 90px;
+width: 100px;
+transform: rotate(25deg);
+/* transform:rotate(5deg) */
+}
+.dog{
+  position: absolute;
+  left: 520px;
+  bottom: 20px;
+  width: 200px;
+  transition: all 0.3s ease; /* 明顯一點的動畫時間 */
+transform-origin: bottom;}
+
 }
 </style>

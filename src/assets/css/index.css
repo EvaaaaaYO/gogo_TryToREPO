@@ -14,6 +14,7 @@ transition: all 0.9s;
 .btn:hover{
   background: linear-gradient(35deg,#64A6BD,#ADA7C9);
 color: #B8C0FF;
+scale: 1.1;
   /* 64A6BD */
 }
 /* 星星 */
