@@ -50,9 +50,18 @@
           <h3>注意cp選項要最後選!!</h3>
           選好cp後再取消作品或是勾新的作品，
           
-          cp選項就會重置，<br>
+          cp選項有機率會重置，<br>
           要重新勾。
           <br>
+          <br>
+          <h3>
+          若選作品但沒有勾cp的話，會包含該作所有cp
+          <br>
+          （僅限所有作品都沒有勾任何cp的狀況）</h3>
+          
+          同一個作品會是同個顏色(如都是忘八的話都會是綠色，
+          <br>
+          除非該攤位有其他作品就會是其他顏色)
           <img src="/public/images/ah.webp" alt="" class="ah">
           <img src="/public/images/pain_dog.webp" alt="" class="dog" loading="lazy">
         
@@ -137,9 +146,17 @@
                  <span  >{{ cp }}</span></div>
 
                 </label> -->
-<label v-for="cp in cpOptions" :key="cp" :class="cp.includes('一般') || cp.includes('全員') ? 'select_theme' : 'select_box'">
-  <input type="checkbox" v-model="selectedCPs" :value="cp" />
-  <span>{{ cp }}</span>
+<label v-for="cp in cpOptions" :key="cp" :class="cp.includes('cp：')  ? 'select_theme' : 'select_box'">
+   <!-- 如果 cp 不包含 'cp:'，顯示 checkbox -->
+  <template v-if="!cp.includes('cp：')">
+    <input type="checkbox" v-model="selectedCPs" :value="cp" />
+    <span>{{ cp }}</span>
+  </template>
+
+  <!-- 如果 cp 包含 'cp:'，只顯示文字 -->
+  <template v-else>
+    <span>{{ cp }}</span>
+  </template>
 </label>
 
               </div>
@@ -176,6 +193,9 @@
       <a href="https://starstonetw.weebly.com/31038222963603935338.html">nice官網</a>
       <br>
       https://www.plurk.com/p/3hghy0yngf
+      <br>https://www.plurk.com/p/3hjkdyyzk6
+      <br>https://www.plurk.com/p/3hjb87wwov
+      <br>https://www.plurk.com/p/3hjtsowtoh
     </div></div>
   </div>
 </template>
@@ -514,15 +534,14 @@ const handleLoadingEnd = () => {
 
 }
 .select_theme{
-    padding: 0 15px;
+    width: 100%;
+    text-align: center;
     margin-top: 20px;
   margin-bottom: 2px;
-  margin-right: 2px;
-  border: 2px solid #B8C0FF;
-  color: #055d7c;
-  background-color: #e0e3ff;
+  color: white;
+  background-color: #B8C0FF;
   border-radius: 20px;
-  transition: all 0.5s;
+  font-size: 22px;
 }
 .select_row {
   display: flex;
@@ -531,7 +550,7 @@ const handleLoadingEnd = () => {
   gap: 5px
 }
 
-.select_box:hover,.select_theme:hover {
+.select_box:hover {
   background-color: #ADA7C9;
   /* border-color: #90A8C3; */
   color: white;
@@ -644,7 +663,7 @@ const handleLoadingEnd = () => {
   text-decoration-line: underline;
 }
 .ex_left h3 {
-  padding-top: 50px;
+  /* padding-top: 50px; */
   color: #B8C0FF;
   font-weight: bold;
   text-decoration-line: underline;
@@ -697,7 +716,7 @@ const handleLoadingEnd = () => {
 }
 .ah{position: absolute;
   left: 1080px;
-  bottom: 100px;
+  bottom: 70px;
 width: 100px;
 transform: rotate(25deg);
 /* transform:rotate(5deg) */
@@ -705,7 +724,7 @@ transform: rotate(25deg);
 .dog{
   position: absolute;
   left: 880px;
-  bottom: 40px;
+  bottom: 25px;
   width: 200px;
   transition: all 0.3s ease; /* 明顯一點的動畫時間 */
 transform-origin: bottom;
@@ -745,7 +764,9 @@ transform:  scaleX(2) scaleY(0.2);
     background-color: white;
     margin-bottom: 40px;
   } */
-
+.text_right {
+  margin-top: 30px;
+  width: 390px;}
   /* .text_right {
     position: absolute;
     top: 70px;

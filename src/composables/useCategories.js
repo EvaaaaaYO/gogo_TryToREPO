@@ -10,11 +10,11 @@ export function useCategories() {
         // 載入分類資料
         categories.value = [
 
-            {
-                "id": 1,
-                "name": "哆啦什夢"
-                // 原創
-            },
+            // {
+            //     "id": 1,
+            //     "name": "哆啦什夢"
+            //     // 原創
+            // },
             {
                 "id": 262,
                 "name": "忍者亂太郎"
