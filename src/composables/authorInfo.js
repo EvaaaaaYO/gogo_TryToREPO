@@ -1305,7 +1305,7 @@ export function authors_Info() {
             { id: 'T64', name: '臨時通告' },
             { id: 'T65T66', name: '3206參貳零陸' },
             // 
-            { id: 'T67', name: '花天酒地',categories: [714,747,748],useCpOptions: ['焰圓','葉流圭','圭圭','忘八一般向','凪玲'] },
+            { id: 'T67', name: '花天酒地',categories: [545,714,747,748],useCpOptions: ['葉流圭','圭圭','忘八一般向','凪玲','焰圓','玖伊'] },
             { id: 'T68', name: '灰色披薩',categories: [747],useCpOptions: ['藤千','忘八一般向'] },
             { id: 'T69T70', name: '帝美女孩不會輸' },
              { id: 'T71', name: '下世不做同人女'},
