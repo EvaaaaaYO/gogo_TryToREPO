@@ -1570,7 +1570,7 @@ export function authors_Info() {
             { id: 'Y23', name: '不想上班' },
             { id: 'Y24', name: 'Y✶M' },
             { id: 'Y25', name: 'RED EYE-響' },
-            { id: 'Y26', name: '物＆語館',categories: [545],useCpOptions: ['伊奧＋崑奧＋崑伊Ｘ奧'] },
+            { id: 'Y26', name: '物＆語館'},
             { id: 'Y27', name: 'Dormouse眠' },
             { id: 'Y28', name: 'BLUE BEAR' },
             { id: 'Y29', name: '酸酸蘇打水' },
