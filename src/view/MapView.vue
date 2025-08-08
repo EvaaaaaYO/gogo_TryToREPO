@@ -122,10 +122,25 @@
             <div class="card-body">
 
               <div class="check_list ">
-                <label v-for="cp in cpOptions" :key="cp" class="select_box">
+                <!-- <label v-for="cp in cpOptions" :key="cp" class="">
+                 
+                  <div v-if="cp.includes('一般')||cp.includes('全員')" 
+                 >
+                  <div  class="select_theme">
                   <input type="checkbox" v-model="selectedCPs" :value="cp" />
-                  <span class="">{{ cp }}</span>
-                </label>
+                 <span  >{{ cp }}</span></div>
+                
+                </div>
+
+                 <div v-else class="select_box">
+                  <input type="checkbox" v-model="selectedCPs" :value="cp" />
+                 <span  >{{ cp }}</span></div>
+
+                </label> -->
+<label v-for="cp in cpOptions" :key="cp" :class="cp.includes('一般') || cp.includes('全員') ? 'select_theme' : 'select_box'">
+  <input type="checkbox" v-model="selectedCPs" :value="cp" />
+  <span>{{ cp }}</span>
+</label>
 
               </div>
             </div>
@@ -167,7 +182,7 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
-
+import { debounce } from 'lodash'
 // 引用攤位的座標地圖js
 import { generateLayout } from
   '@/composables/booth_map2'
@@ -300,25 +315,30 @@ watch(selectedCategories, (newCats) => {
 //   new: newCPs,
 //   changed: newCPs !== oldCPs
 // })
-// 當CP選項改變時，只重新繪製有useCpOptions的攤位
-watch(selectedCPs, () => {
+
+// 只在 300ms 內沒有再變動時才觸發 redraw
+const debouncedRedraw = debounce(() => {
   if (drawMapRef.value && authorsWithCP.value.length > 0) {
     authorsWithCP.value.forEach(author => {
       drawMapRef.value.redraw_single(author.id)
     })
   }
-})
+}, 200)
+
+// 當CP選項改變時，只重新繪製有useCpOptions的攤位
+watch(selectedCPs, debouncedRedraw)
+
 
 //變色 - 基於分類ID決定顏色，確保相同ID永遠有相同顏色
 function getColorByIndex(index) {
-  return `hsl(${index * 30},60%,80%)`
+  return `hsl(${index * 10},60%,80%)`
 }
 
 // 基於分類ID生成固定顏色
 function getColorByCatId(id) {
   // 使用分類ID的數字部分來生成固定的顏色
   const numericId = parseInt(id.toString().replace(/\D/g, '')) || 0
-  return `hsl(${numericId * 25 % 360},60%,80%)`
+  return `hsl(${numericId * 5 % 360},60%,80%)`
 }
 
 // 新增：處理多分類的顏色選擇函數
@@ -493,7 +513,17 @@ const handleLoadingEnd = () => {
   transition: all 0.5s;
 
 }
-
+.select_theme{
+    padding: 0 15px;
+    margin-top: 20px;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  border: 2px solid #B8C0FF;
+  color: #055d7c;
+  background-color: #e0e3ff;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
 .select_row {
   display: flex;
   /* 可自動換行 */
@@ -501,7 +531,7 @@ const handleLoadingEnd = () => {
   gap: 5px
 }
 
-.select_box:hover {
+.select_box:hover,.select_theme:hover {
   background-color: #ADA7C9;
   /* border-color: #90A8C3; */
   color: white;
@@ -512,7 +542,7 @@ const handleLoadingEnd = () => {
 }
 
 .check_list {
-  max-height: 150px;
+  max-height: 250px;
   overflow-y: auto;
   /* border: 1px solid #eee; */
   padding: 0.5rem;
