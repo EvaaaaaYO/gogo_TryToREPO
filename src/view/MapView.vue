@@ -48,18 +48,14 @@
         <div class="ex_left">
         <div class="text_right">
           <h3>注意cp選項要最後選!!</h3>
-          選好cp後再取消作品或是勾新的作品，
-          
-          cp選項有機率會重置，<br>
-          要重新勾。
-          <br>
+         
           <br>
           <h3>
-          若選作品但沒有勾cp的話，會包含該作所有cp
-          <br>
-          （僅限所有作品都沒有勾任何cp的狀況）</h3>
-          
-          同一個作品會是同個顏色(如:忘八的話會是綠色，
+          若選作品但沒有勾cp的話，<br>
+          會包含該作所有cp</h3>
+      *僅限所選的作品都沒有勾任何cp的狀況
+          <br><br>
+          同作品的攤位會是同個顏色(如:忘八的話會是綠色，
           <br>
           除非該攤位有其他作品就會是其他顏色)
           <img src="/public/images/ah.webp" alt="" class="ah">
@@ -186,18 +182,7 @@
         <p>正在載入展場地圖...</p>
       </div>
     </div>
-    <div class=" explain">
-      <div>
-      <h4>資料來源:</h4>
-
-      <a href="https://starstonetw.weebly.com/31038222963603935338.html">nice官網</a>
-      <br>
-      https://www.plurk.com/p/3hghy0yngf
-      <br>https://www.plurk.com/p/3hjkdyyzk6
-      <br>https://www.plurk.com/p/3hjb87wwov
-      <br>https://www.plurk.com/p/3hjtsowtoh
-      <br>https://www.plurk.com/p/3hkpttykzq
-    </div></div>
+   
   </div>
 </template>
 
@@ -622,7 +607,7 @@ const handleLoadingEnd = () => {
 
 .bg {
   min-width: 2739px;
-  padding-top: 50px;
+  padding-top: 10px;
   /* padding-bottom: 20px; */
   width: 100%;
 
@@ -718,7 +703,7 @@ const handleLoadingEnd = () => {
 }
 .ah{position: absolute;
   left: 1080px;
-  bottom: 70px;
+  bottom: 50px;
 width: 100px;
 transform: rotate(25deg);
 /* transform:rotate(5deg) */
