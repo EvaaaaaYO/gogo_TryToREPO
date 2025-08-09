@@ -15,6 +15,10 @@ export function useCategories() {
             //     "name": "哆啦什夢"
             //     // 原創
             // },
+              {
+        "id": 229,
+        "name": "地。—關於地球的運動—"
+    },
             {
                 "id": 262,
                 "name": "忍者亂太郎"
@@ -30,6 +34,10 @@ export function useCategories() {
 
             //     {"id": 714,
             //     "name": "魔法少女小圓"},
+             {
+        "id": 640,
+        "name": "排球少年"
+    },
             {
                 "id": 747,
                 "name": "失憶投捕"

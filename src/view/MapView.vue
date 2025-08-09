@@ -150,7 +150,7 @@
    <!-- 如果 cp 不包含 'cp:'，顯示 checkbox -->
   <template v-if="!cp.includes('cp：')">
     <input type="checkbox" v-model="selectedCPs" :value="cp" />
-    <span>{{ cp }}</span>
+    <span class="m10">{{ cp }}</span>
   </template>
 
   <!-- 如果 cp 包含 'cp:'，只顯示文字 -->
@@ -196,6 +196,7 @@
       <br>https://www.plurk.com/p/3hjkdyyzk6
       <br>https://www.plurk.com/p/3hjb87wwov
       <br>https://www.plurk.com/p/3hjtsowtoh
+      <br>https://www.plurk.com/p/3hkpttykzq
     </div></div>
   </div>
 </template>
@@ -503,6 +504,7 @@ const handleLoadingEnd = () => {
 
 </script>
 <style scoped>
+.m10{margin-left: 5px;}
 .card_row {
   padding-left: 20px;
   display: flex;
